@@ -3,13 +3,15 @@ import 'package:death_day/main.dart';
 import 'package:provider/provider.dart';
 
 class Favorites extends StatelessWidget {
+  const Favorites({super.key});
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pairs = appState.favorites;
 
     if (appState.favorites.isEmpty) {
-      return Center(
+      return const Center(
         child: Text('No favorites yet.'),
       );
     }
@@ -24,7 +26,7 @@ class Favorites extends StatelessWidget {
           ),
           for (var pair in pairs)
             ListTile(
-              leading: Icon(Icons.favorite),
+              leading: const Icon(Icons.favorite),
               title: Text(pair.asCamelCase),
             ),
         ],
