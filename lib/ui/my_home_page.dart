@@ -1,6 +1,8 @@
+import 'package:death_day/main.dart';
 import 'package:flutter/material.dart';
-import 'package:death_day/favorites.dart';
-import 'package:death_day/generator_page.dart';
+import 'package:death_day/ui/favorites.dart';
+import 'package:death_day/ui/generator_page.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -24,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
-
+    var appState = context.watch<MyAppState>();
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: Row(
@@ -32,15 +34,20 @@ class _MyHomePageState extends State<MyHomePage> {
             SafeArea(
               child: NavigationRail(
                 extended: constraints.maxWidth >= 600,
-                destinations: const [
-                  NavigationRailDestination(
+                destinations: [
+                  const NavigationRailDestination(
                     icon: Icon(Icons.home),
                     label: Text('Home'),
                   ),
-                  NavigationRailDestination(
+                  const NavigationRailDestination(
                     icon: Icon(Icons.favorite),
                     label: Text('Favorites'),
                   ),
+                  for (var user in appState.users)
+                    NavigationRailDestination(
+                      icon: const Icon(Icons.add_box_sharp),
+                      label: Text(user.name),
+                    ),
                 ],
                 selectedIndex: selectedIndex,
                 onDestinationSelected: (value) {

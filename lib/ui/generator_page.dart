@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:death_day/big_card.dart';
+import 'package:death_day/ui/big_card.dart';
 import 'package:death_day/main.dart';
 import 'package:provider/provider.dart';
 

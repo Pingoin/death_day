@@ -1,6 +1,7 @@
+import 'package:death_day/model/user.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:death_day/my_home_page.dart';
+import 'package:death_day/ui/my_home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'Death Day',
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
@@ -30,7 +31,10 @@ class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 
   var favorites = <WordPair>[];
+  var users = <User>[];
+
   void toggleFavorite() {
+      users.add(User());
     if (favorites.contains(current)) {
       favorites.remove(current);
     } else {
