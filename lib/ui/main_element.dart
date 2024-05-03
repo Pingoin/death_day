@@ -19,7 +19,11 @@ class _MainElementState extends State<MainElement> {
     Widget page;
     var appState = context.watch<MyAppState>();
 
-    if (appState.editActive) {
+    if (selectedIndex > appState.users.length) {
+      page = Placeholder();
+    } else if (appState.editActive ||
+        !appState.isInUserRange(appState.currentUser)) {
+      appState.editActive = true;
       page = const UserEdit();
     } else {
       page = const UserView();
@@ -52,16 +56,20 @@ class _MainElementState extends State<MainElement> {
             icon: const Icon(Icons.face),
             label: Text(user.name),
           ),
-         NavigationRailDestination(
+        NavigationRailDestination(
           icon: const Icon(Icons.add_circle_outline),
           label: Text(AppLocalizations.of(context)!.new_user),
+        ),
+        NavigationRailDestination(
+          icon: const Icon(Icons.home_filled),
+          label: Text(AppLocalizations.of(context)!.about_page),
         ),
       ],
       selectedIndex: selectedIndex,
       onDestinationSelected: (value) {
         setState(() {
           selectedIndex = value;
-          if (selectedIndex >= appState.users.length) {
+          if (!appState.isInUserRange(selectedIndex)) {
             appState.selectUser(-1);
             appState.setEdit(true);
           } else {

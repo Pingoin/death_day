@@ -24,6 +24,7 @@ class UserView extends StatelessWidget {
       color: theme.colorScheme.onPrimary,
     );
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card(
           color: theme.colorScheme.primary,
@@ -47,11 +48,22 @@ class UserView extends StatelessWidget {
             ),
           ),
         ),
+        Card(
+          color: theme.colorScheme.primary,
+          elevation: 5.0,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              AppLocalizations.of(context)!.birth_time(user.birhDate),
+              style: style,
+            ),
+          ),
+        ),
         ElevatedButton(
           onPressed: () {
             appState.setEdit(true);
           },
-          child: Text("edit"),
+          child: Text(AppLocalizations.of(context)!.edit),
         ),
       ],
     );

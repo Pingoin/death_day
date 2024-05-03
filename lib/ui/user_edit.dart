@@ -42,7 +42,7 @@ class _UserEditState extends State<UserEdit> {
       if (appState.isInUserRange(appState.currentUser)) {
         user = appState.users[appState.currentUser];
         buttonText = AppLocalizations.of(context)!.update_user;
-        nameController.text=user.name;
+        nameController.text = user.name;
       } else {
         user = User();
         buttonText = AppLocalizations.of(context)!.add_user;
@@ -50,6 +50,7 @@ class _UserEditState extends State<UserEdit> {
     });
 
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextFormField(
           controller: nameController,
@@ -60,22 +61,38 @@ class _UserEditState extends State<UserEdit> {
         ),
         ElevatedButton(
           onPressed: () {
-            showDateTimePicker(context: context, lastDate: DateTime.now())
+            showDateTimePicker(
+                    context: context,
+                    initialDate: user.birhDate,
+                    lastDate: DateTime.now())
                 .then((value) => {
                       if (value != null) {user.birhDate = value}
                     });
           },
           child: Text(AppLocalizations.of(context)!.set_birthday),
         ),
-        ElevatedButton(
-          onPressed: () {
-            if (!appState.isInUserRange(appState.currentUser)) {
-              appState.users.add(user);
-              appState.selectUser(appState.users.length - 1);
-            }
-            appState.setEdit(false);
-          },
-          child: Text(buttonText),
+        Row(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                if (!appState.isInUserRange(appState.currentUser)) {}
+                appState.removeUser(appState.currentUser);
+                appState.selectUser(0);
+                appState.setEdit(false);
+              },
+              child: Text(AppLocalizations.of(context)!.delete),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (!appState.isInUserRange(appState.currentUser)) {
+                  appState.users.add(user);
+                  appState.selectUser(appState.users.length - 1);
+                }
+                appState.setEdit(false);
+              },
+              child: Text(buttonText),
+            ),
+          ],
         ),
       ],
     );

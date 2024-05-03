@@ -19,8 +19,20 @@
             }
         }
     },
+    "birth_time": "time of birth: {date}",
+    "@birth_time": {
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "Hm"
+            }
+        }
+    },
     "user_name_input":"Enter your username",
     "add_user":"Add user",
     "update_user":"Update user",
-    "set_birthday":"Set your birthday"
+    "set_birthday":"Set your birthday",
+    "edit":"Edit",
+    "delete":"Delete",
+    "about_page":"About"
 }

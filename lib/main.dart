@@ -31,15 +31,17 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   var users = <User>[];
-  int currentUser = -1;
+  int currentUser = 0;
 
   bool editActive = false;
 
-  MyAppState() {
-    users.add(User());
-  }
   void selectUser(int user) {
     currentUser = user;
+    notifyListeners();
+  }
+
+  void removeUser(int user){
+    users.removeAt(user);
     notifyListeners();
   }
 
@@ -49,6 +51,6 @@ class MyAppState extends ChangeNotifier {
   }
 
   bool isInUserRange(int value){
-    return (value>=0 && value <users.length);
+    return (value>=0 && value < users.length);
   }
 }
