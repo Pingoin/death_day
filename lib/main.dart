@@ -1,8 +1,8 @@
 import 'package:death_day/model/user.dart';
-import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:death_day/ui/my_home_page.dart';
+import 'package:death_day/ui/main_element.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,34 +17,37 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Death Day',
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
         ),
-        home: const MyHomePage(),
+        home: const MainElement(),
       ),
     );
   }
 }
 
 class MyAppState extends ChangeNotifier {
-  var current = WordPair.random();
-
-  var favorites = <WordPair>[];
   var users = <User>[];
+  int currentUser = -1;
 
-  void toggleFavorite() {
-      users.add(User());
-    if (favorites.contains(current)) {
-      favorites.remove(current);
-    } else {
-      favorites.add(current);
-    }
+  bool editActive = false;
+
+  MyAppState() {
+    users.add(User());
+    users.add(User());
+    users.add(User());
+    users.add(User());
+  }
+  void selectUser(int user) {
+    currentUser = user;
     notifyListeners();
   }
 
-  void getNext() {
-    current = WordPair.random();
+  void setEdit(bool edit) {
+    editActive = edit;
     notifyListeners();
   }
 }

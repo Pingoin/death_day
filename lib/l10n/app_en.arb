@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "@@author": "Pingoin",
+    "@@context": "Englich locales",
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+        "description": "The conventional newborn programmer greeting"
+    },
+    "new_user": "New User",
+    "@new_user": {
+        "description": "Tag for new Users"
+    },
+    "birth_date": "date of birth: {date}",
+    "@birth_date": {
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    }
+}
