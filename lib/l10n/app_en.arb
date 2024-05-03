@@ -18,5 +18,9 @@
                 "format": "yMd"
             }
         }
-    }
+    },
+    "user_name_input":"Enter your username",
+    "add_user":"Add user",
+    "update_user":"Update user",
+    "set_birthday":"Set your birthday"
 }

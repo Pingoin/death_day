@@ -4,5 +4,6 @@
     "@@context": "German locales",
     "helloWorld": "Hallo Welt",
     "new_user":"Neuer Nutzer",
-    "birth_date":"Geburtstag: {date}"
+    "birth_date":"Geburtstag: {date}",
+    "user_name_input":"Gib deinen Nutzernamen ein"
 }

@@ -7,23 +7,23 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class UserView extends StatelessWidget {
   const UserView({super.key});
 
-@override
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
 
     User user;
 
-    if(appState.currentUser>=0){
-      user=appState.users[appState.currentUser];
-    }else{
-      user=User();
+    if (appState.currentUser >= 0) {
+      user = appState.users[appState.currentUser];
+    } else {
+      user = User();
     }
 
     final style = theme.textTheme.displayMedium!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
-    return  Column(
+    return Column(
       children: [
         Card(
           color: theme.colorScheme.primary,
@@ -46,6 +46,12 @@ class UserView extends StatelessWidget {
               style: style,
             ),
           ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            appState.setEdit(true);
+          },
+          child: Text("edit"),
         ),
       ],
     );

@@ -37,9 +37,6 @@ class MyAppState extends ChangeNotifier {
 
   MyAppState() {
     users.add(User());
-    users.add(User());
-    users.add(User());
-    users.add(User());
   }
   void selectUser(int user) {
     currentUser = user;
@@ -49,5 +46,9 @@ class MyAppState extends ChangeNotifier {
   void setEdit(bool edit) {
     editActive = edit;
     notifyListeners();
+  }
+
+  bool isInUserRange(int value){
+    return (value>=0 && value <users.length);
   }
 }
