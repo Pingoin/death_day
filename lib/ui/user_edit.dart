@@ -63,10 +63,10 @@ class _UserEditState extends State<UserEdit> {
           onPressed: () {
             showDateTimePicker(
                     context: context,
-                    initialDate: user.birhDate,
+                    initialDate: user.birthDate,
                     lastDate: DateTime.now())
                 .then((value) => {
-                      if (value != null) {user.birhDate = value}
+                      if (value != null) {user.birthDate = value}
                     });
           },
           child: Text(AppLocalizations.of(context)!.set_birthday),

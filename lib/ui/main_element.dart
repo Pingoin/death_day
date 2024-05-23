@@ -20,7 +20,14 @@ class _MainElementState extends State<MainElement> {
     var appState = context.watch<MyAppState>();
 
     if (selectedIndex > appState.users.length) {
-      page = Placeholder();
+      page =        Card(
+          elevation: 5.0,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(appState.usersString
+            ),
+          ),
+        );
     } else if (appState.editActive ||
         !appState.isInUserRange(appState.currentUser)) {
       appState.editActive = true;

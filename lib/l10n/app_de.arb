@@ -11,5 +11,7 @@
     "update_user":"Nutzer aktualisieren",
     "set_birthday":"Geburtstag angeben",
     "edit":"Anpassen",
-    "delete":"Löschen"
+    "delete":"Löschen",
+    "time_left": "Zeit Verbleibend: {days} Tage {hours}:{minutes}:{seconds}",
+    "time_of_death": "Zeitpunkt des Todes: {date} {time}"
 }
