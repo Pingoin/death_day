@@ -1,0 +1,14 @@
+const double expectancyAtBirthFemale = 83.18;
+const double expectancyAtBirthMale = 78.33;
+const double halfCriticalAgeFemale = 42;
+const double halfCriticalAgeMale = 41;
+const double expectancyAtHalfCriticalAgeFemale = 41.94;
+const double expectancyAtHalfCriticalAgeMale = 38.42;
+const double criticalAgeFemale = 83;
+const double criticalAgeMale = 82;
+const double expectancyAtCriticalAgeFemale = 7.58;
+const double expectancyAtCriticalAgeMale = 6.9;
+const double lastAgeFemale = 100.0;
+const double lastAgeMale = 100.0;
+const double expectancyAtLastAgeFemale = 1.97;
+const double expectancyAtlastAgeMale = 1.75;
