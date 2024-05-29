@@ -22,38 +22,27 @@ void main() async {
     }
   }
 
-  String file =
-      "const double expectancyAtBirthFemale = ${currentRegressionF.expectancyAtBirth};\n";
-  file +=
-      "const double expectancyAtBirthMale = ${currentRegressionM.expectancyAtBirth};\n";
-  file +=
-      "const double halfCriticalAgeFemale = ${currentRegressionF.halfCriticalAge};\n";
-  file +=
-      "const double halfCriticalAgeMale = ${currentRegressionM.halfCriticalAge};\n";
-  file +=
-      "const double expectancyAtHalfCriticalAgeFemale = ${currentRegressionF.expectancyAtHalfCriticalAge};\n";
-  file +=
-      "const double expectancyAtHalfCriticalAgeMale = ${currentRegressionM.expectancyAtHalfCriticalAge};\n";
-  file +=
-      "const double criticalAgeFemale = ${currentRegressionF.criticalAge};\n";
-  file += "const double criticalAgeMale = ${currentRegressionM.criticalAge};\n";
-  file +=
-      "const double expectancyAtCriticalAgeFemale = ${currentRegressionF.expectancyAtCriticalAge};\n";
-  file +=
-      "const double expectancyAtCriticalAgeMale = ${currentRegressionM.expectancyAtCriticalAge};\n";
-  file += "const double lastAgeFemale = ${currentRegressionF.lastAge};\n";
-  file += "const double lastAgeMale = ${currentRegressionM.lastAge};\n";
-  file +=
-      "const double expectancyAtLastAgeFemale = ${currentRegressionF.expectancyAtLastAge};\n";
-  file +=
-      "const double expectancyAtlastAgeMale = ${currentRegressionM.expectancyAtLastAge};\n";
-  
-  File("lib/model/data.g.dart").writeAsString(file);
+  String file = "import 'package:death_day/model/calculator.dart';\n";
+  file += "Calculator femaleModel=Calculator(";
+  file += "${currentRegressionF.expectancyAtBirth},";
+  file += "${currentRegressionF.halfCriticalAge},";
+  file += "${currentRegressionF.expectancyAtHalfCriticalAge},";
+  file += "${currentRegressionF.criticalAge},";
+  file += "${currentRegressionF.lastAge},";
+  file += "${currentRegressionF.expectancyAtCriticalAge},";
+  file += "${currentRegressionF.expectancyAtLastAge},";
+  file += ");\n";
+  file += "Calculator maleModel=Calculator(";
+  file += "${currentRegressionM.expectancyAtBirth},";
+  file += "${currentRegressionM.halfCriticalAge},";
+  file += "${currentRegressionM.expectancyAtHalfCriticalAge},";
+  file += "${currentRegressionM.criticalAge},";
+  file += "${currentRegressionM.lastAge},";
+  file += "${currentRegressionM.expectancyAtCriticalAge},";
+  file += "${currentRegressionM.expectancyAtLastAge},";
+  file += ");\n";
 
-  print(currentRegressionM.errorLimit);
-  print(currentRegressionM.criticalAge);
-  print(currentRegressionF.errorLimit);
-  print(currentRegressionF.criticalAge);
+  File("lib/model/data.g.dart").writeAsString(file);
 }
 
 (List<double>, List<double>) parseStringMaleFemale(String input) {
@@ -74,24 +63,24 @@ RegressionResult performRegression(
   int halfCriticalAge = (criticalAge / 2).round();
 
   Calculator calc = Calculator(
-      list[0],
-      halfCriticalAge.toDouble(),
-      list[halfCriticalAge],
-      criticalAge.toDouble(),
-      list.length + 1,
-      list[criticalAge],
-      list.last,
-      );
+    list[0],
+    halfCriticalAge.toDouble(),
+    list[halfCriticalAge],
+    criticalAge.toDouble(),
+    list.length + 1,
+    list[criticalAge],
+    list.last,
+  );
 
   var regression = RegressionResult();
   regression.errorLimit = 0;
   regression.criticalAge = criticalAge;
   regression.halfCriticalAge = halfCriticalAge;
-  regression.lastAge=list.length - 1;
-  regression.expectancyAtBirth=list[0];
-  regression.expectancyAtCriticalAge=list[criticalAge];
-  regression.expectancyAtHalfCriticalAge=list[halfCriticalAge];
-  regression.expectancyAtLastAge=list.last;
+  regression.lastAge = list.length - 1;
+  regression.expectancyAtBirth = list[0];
+  regression.expectancyAtCriticalAge = list[criticalAge];
+  regression.expectancyAtHalfCriticalAge = list[halfCriticalAge];
+  regression.expectancyAtLastAge = list.last;
   for (var i = 0; i < list.length; i++) {
     var modelVal = calc.getExpantancy(i.toDouble());
     var listVal = list[i];

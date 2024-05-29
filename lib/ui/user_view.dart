@@ -20,7 +20,7 @@ class _UserViewState extends State<UserView> {
     super.initState();
     active = true;
     super.initState();
-    Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
+    Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
       if (!active) {
         t.cancel();
       } else {

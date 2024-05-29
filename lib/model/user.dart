@@ -1,5 +1,6 @@
 
 
+import 'package:death_day/model/data.g.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
@@ -14,7 +15,7 @@ class User{
   }
 
   DateTime get deathTime{
-    return DateTime.parse('2026-07-20 20:18:04Z');
+    return maleModel.getDeathDate(birthDate);
   }
 
     /// Connect the generated [_$UserFromJson] function to the `fromJson`
