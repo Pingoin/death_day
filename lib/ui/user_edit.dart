@@ -71,6 +71,17 @@ class _UserEditState extends State<UserEdit> {
           },
           child: Text(AppLocalizations.of(context)!.set_birthday),
         ),
+        DropdownButton<Gender>(
+            value: user.gender,
+            onChanged: (Gender? newValue) {
+              setState(() {
+                user.gender = newValue!;
+              });
+            },
+            items: Gender.values.map((Gender classType) {
+              return DropdownMenuItem<Gender>(
+                  value: classType, child: Text(classType.toPrintString(context)));
+            }).toList()),
         Row(
           children: [
             ElevatedButton(

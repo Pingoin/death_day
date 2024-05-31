@@ -64,5 +64,7 @@
     "set_birthday":"Set your birthday",
     "edit":"Edit",
     "delete":"Delete",
-    "about_page":"About"
+    "about_page":"About",
+    "male":"male",
+    "female":"female"
 }

@@ -14,5 +14,7 @@
     "delete":"Löschen",
     "time_left": "Zeit Verbleibend: {days} Tage {hours}:{minutes}:{seconds}",
     "time_of_death": "Zeitpunkt des Todes: {date} {time}",
-    "about_page":"Über Death Day"
+    "about_page":"Über Death Day",
+    "male":"männlich",
+    "female":"weiblich"
 }
