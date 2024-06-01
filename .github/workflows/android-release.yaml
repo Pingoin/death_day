@@ -1,9 +1,8 @@
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    # Pattern matched against refs/tags
+    tags:        
+      - '*'  
   # 3
   workflow_dispatch:
 
@@ -16,12 +15,6 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-      - name: Java
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: "12.x"
-          cache: 'gradle'
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
