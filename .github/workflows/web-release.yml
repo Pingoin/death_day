@@ -27,11 +27,10 @@ jobs:
       - name: Start Web Release Build
         run: flutter build web --release
      
-      - name: Upload Web Build Files
-        uses: actions/upload-artifact@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: web-release
-          path: ./build/web
+          path: ./build/web/
 
   deploy:
     needs: build
