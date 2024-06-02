@@ -1,7 +1,7 @@
 import 'package:death_day/model/data.g.dart';
 import 'package:flutter/widgets.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/gen_l10n/app_localizations.dart';
 
 part 'user.g.dart';
 
@@ -36,9 +36,9 @@ enum Gender { male, female }
 extension ParseToString on Gender {
   String toPrintString(BuildContext context) {
     if (this == Gender.female) {
-      return AppLocalizations.of(context)!.female;
+      return AppLocalizations.of(context).female;
     } else {
-      return AppLocalizations.of(context)!.male;
+      return AppLocalizations.of(context).male;
     }
   }
 }

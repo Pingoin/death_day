@@ -1,9 +1,9 @@
-import 'package:death_day/main.dart';
+import 'package:death_day/app_state.dart';
 import 'package:death_day/ui/user_edit.dart';
 import 'package:death_day/ui/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/gen_l10n/app_localizations.dart';
 
 class MainElement extends StatefulWidget {
   const MainElement({super.key});
@@ -20,14 +20,14 @@ class _MainElementState extends State<MainElement> {
     var appState = context.watch<MyAppState>();
 
     if (selectedIndex > appState.users.length) {
-      page =        Card(
-          elevation: 5.0,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(appState.usersString
-            ),
-          ),
-        );
+      page = Card(
+        elevation: 5.0,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            "${appState.usersString}\n${appState.appName}\n${appState.packageName}\n${appState.version}\n${appState.buildNumber}"),
+        ),
+      );
     } else if (appState.editActive ||
         !appState.isInUserRange(appState.currentUser)) {
       appState.editActive = true;
@@ -65,11 +65,11 @@ class _MainElementState extends State<MainElement> {
           ),
         NavigationRailDestination(
           icon: const Icon(Icons.add_circle_outline),
-          label: Text(AppLocalizations.of(context)!.new_user),
+          label: Text(AppLocalizations.of(context).new_user),
         ),
         NavigationRailDestination(
           icon: const Icon(Icons.home_filled),
-          label: Text(AppLocalizations.of(context)!.about_page),
+          label: Text(AppLocalizations.of(context).about_page),
         ),
       ],
       selectedIndex: selectedIndex,

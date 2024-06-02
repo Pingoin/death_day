@@ -1,9 +1,9 @@
-import 'package:death_day/main.dart';
+import 'package:death_day/app_state.dart';
 import 'package:death_day/model/user.dart';
 import 'package:death_day/ui/helper/show_date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../l10n/gen_l10n/app_localizations.dart';
 
 class UserEdit extends StatefulWidget {
   const UserEdit({super.key});
@@ -41,11 +41,11 @@ class _UserEditState extends State<UserEdit> {
     setState(() {
       if (appState.isInUserRange(appState.currentUser)) {
         user = appState.users[appState.currentUser];
-        buttonText = AppLocalizations.of(context)!.update_user;
+        buttonText = AppLocalizations.of(context).update_user;
         nameController.text = user.name;
       } else {
         user = User();
-        buttonText = AppLocalizations.of(context)!.add_user;
+        buttonText = AppLocalizations.of(context).add_user;
       }
     });
 
@@ -56,7 +56,7 @@ class _UserEditState extends State<UserEdit> {
           controller: nameController,
           decoration: InputDecoration(
             border: const UnderlineInputBorder(),
-            labelText: AppLocalizations.of(context)!.user_name_input,
+            labelText: AppLocalizations.of(context).user_name_input,
           ),
         ),
         ElevatedButton(
@@ -69,7 +69,7 @@ class _UserEditState extends State<UserEdit> {
                       if (value != null) {user.birthDate = value}
                     });
           },
-          child: Text(AppLocalizations.of(context)!.set_birthday),
+          child: Text(AppLocalizations.of(context).set_birthday),
         ),
         DropdownButton<Gender>(
             value: user.gender,
@@ -91,7 +91,7 @@ class _UserEditState extends State<UserEdit> {
                 appState.selectUser(0);
                 appState.setEdit(false);
               },
-              child: Text(AppLocalizations.of(context)!.delete),
+              child: Text(AppLocalizations.of(context).delete),
             ),
             ElevatedButton(
               onPressed: () {
