@@ -1,4 +1,5 @@
 import 'package:death_day/app_state.dart';
+import 'package:death_day/ui/about_page.dart';
 import 'package:death_day/ui/user_edit.dart';
 import 'package:death_day/ui/user_view.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,7 @@ class _MainElementState extends State<MainElement> {
     var appState = context.watch<MyAppState>();
 
     if (selectedIndex > appState.users.length) {
-      page = Card(
-        elevation: 5.0,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            "${appState.usersString}\n${appState.appName}\n${appState.packageName}\n${appState.version}\n${appState.buildNumber}"),
-        ),
-      );
+      page = const AboutPage();
     } else if (appState.editActive ||
         !appState.isInUserRange(appState.currentUser)) {
       appState.editActive = true;
