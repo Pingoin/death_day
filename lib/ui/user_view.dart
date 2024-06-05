@@ -49,11 +49,11 @@ class _UserViewState extends State<UserView> {
       user = User();
     }
 
-    final style = theme.textTheme.displayMedium!.copyWith(
+    final style = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return ListView(
+      //mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Card(
           color: theme.colorScheme.primary,

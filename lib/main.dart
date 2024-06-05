@@ -1,7 +1,7 @@
 import 'package:death_day/app_state.dart';
 import 'package:death_day/ui/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:death_day/ui/main_element.dart';
+import 'package:death_day/ui/layout.dart';
 import 'package:provider/provider.dart';
 import './l10n/gen_l10n/app_localizations.dart';
 
@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
         title: 'Death Day',
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        theme: const DeathDayTheme(TextTheme()).darkMediumContrast(),
-        home: const MainElement(),
+        theme: const DeathDayTheme(TextTheme()).dark(),
+        home: const AppLayout(),
       ),
     );
   }

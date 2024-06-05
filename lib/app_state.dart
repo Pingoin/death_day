@@ -40,17 +40,18 @@ class MyAppState extends ChangeNotifier {
   void loadData() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var savedData = prefs.getString("users");
-    debugPrint("Loading Data");
     if (savedData != null) {
       List<dynamic> data = jsonDecode(savedData);
 
       for (dynamic element in data) {
         users.add(User.fromJson(element));
       }
-      debugPrint("data loaded");
-      debugPrint(savedData);
     }
 
+    if (users.isNotEmpty){
+      currentUser=0;
+      editActive=false;
+    }
     notifyListeners();
   }
 

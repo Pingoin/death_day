@@ -11,11 +11,11 @@ class AboutPage extends StatelessWidget {
     var appState = context.watch<MyAppState>();
     final theme = Theme.of(context);
 
-    final style = theme.textTheme.displayMedium!.copyWith(
+    final style = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onPrimary,
     );
 
-    return Column(
+    return ListView(
       children: [
         Card(
           elevation: 5.0,
@@ -24,7 +24,17 @@ class AboutPage extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Text(
               style: style,
-              "${appState.usersString}\n${appState.appName}\n${appState.packageName}\n${appState.version}\n${appState.buildNumber}"),
+              "App Version: ${appState.version}"),
+          ),
+        ),
+                Card(
+          elevation: 5.0,
+          color: theme.colorScheme.primary,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              style: style,
+              "Build Number: ${appState.buildNumber}"),
           ),
         ),
       ],
