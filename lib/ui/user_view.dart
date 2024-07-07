@@ -5,6 +5,9 @@ import 'package:death_day/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
+import 'dart:io';
+import 'package:flutter/widgets.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class UserView extends StatefulWidget {
   const UserView({super.key});
@@ -93,6 +96,7 @@ class _UserViewState extends State<UserView> {
             ),
           ),
         ),
+        MyBannerAdWidget(),
         ElevatedButton(
           onPressed: () {
             appState.setEdit(true);
@@ -101,5 +105,89 @@ class _UserViewState extends State<UserView> {
         ),
       ],
     );
+  }
+}
+
+
+class MyBannerAdWidget extends StatefulWidget {
+  /// The requested size of the banner. Defaults to [AdSize.banner].
+  final AdSize adSize;
+
+  /// The AdMob ad unit to show.
+  ///
+  /// TODO: replace this test ad unit with your own ad unit
+  final String adUnitId = Platform.isAndroid
+      // Use this ad unit on Android...
+      ? 'ca-app-pub-1419955128907933~5126146979'
+      // ... or this one on iOS.
+      : 'ca-app-pub-1419955128907933~6258716501';
+
+  MyBannerAdWidget({
+    super.key,
+    this.adSize = AdSize.banner,
+  });
+
+  @override
+  State<MyBannerAdWidget> createState() => _MyBannerAdWidgetState();
+}
+
+class _MyBannerAdWidgetState extends State<MyBannerAdWidget> {
+  /// The banner ad to show. This is `null` until the ad is actually loaded.
+  BannerAd? _bannerAd;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SizedBox(
+        width: widget.adSize.width.toDouble(),
+        height: widget.adSize.height.toDouble(),
+        child: _bannerAd == null
+            // Nothing to render yet.
+            ? SizedBox()
+            // The actual ad.
+            : AdWidget(ad: _bannerAd!),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAd();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  /// Loads a banner ad.
+  void _loadAd() {
+    final bannerAd = BannerAd(
+      size: widget.adSize,
+      adUnitId: widget.adUnitId,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        // Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          if (!mounted) {
+            ad.dispose();
+            return;
+          }
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (ad, error) {
+          debugPrint('BannerAd failed to load: $error');
+          ad.dispose();
+        },
+      ),
+    );
+
+    // Start loading.
+    bannerAd.load();
   }
 }
