@@ -1,6 +1,5 @@
 import 'package:death_day/app_state.dart';
 import 'package:death_day/model/user.dart';
-import 'package:death_day/ui/helper/show_date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
@@ -61,10 +60,12 @@ class _UserEditState extends State<UserEdit> {
         ),
         ElevatedButton(
           onPressed: () {
-            showDateTimePicker(
+            showDatePicker(
                     context: context,
                     initialDate: user.birthDate,
-                    lastDate: DateTime.now())
+                    lastDate: DateTime.now(),
+                    firstDate: DateTime.now()
+                        .subtract(const Duration(days: 365 * 130)))
                 .then((value) => {
                       if (value != null) {user.birthDate = value}
                     });
@@ -80,7 +81,8 @@ class _UserEditState extends State<UserEdit> {
             },
             items: Gender.values.map((Gender classType) {
               return DropdownMenuItem<Gender>(
-                  value: classType, child: Text(classType.toPrintString(context)));
+                  value: classType,
+                  child: Text(classType.toPrintString(context)));
             }).toList()),
         Row(
           children: [

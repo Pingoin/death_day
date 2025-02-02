@@ -19,19 +19,10 @@
             }
         }
     },
-    "time_left": "time left: {days} days {hours}:{minutes}:{seconds}",
+    "time_left": "{days} days left",
     "@time_left": {
         "placeholders": {
             "days": {
-                "type": "int"
-            },
-            "hours": {
-                "type": "int"
-            },
-            "minutes": {
-                "type": "int"
-            },
-            "seconds": {
                 "type": "int"
             }
         } 
@@ -45,16 +36,12 @@
             }
         }
     },
-    "time_of_death": "time of death: {date} {time}",
+    "time_of_death": "time of death: {date}",
     "@time_of_death": {
         "placeholders": {
             "date": {
                 "type": "DateTime",
                 "format": "yMd"
-            },
-            "time": {
-                "type": "DateTime",
-                "format": "Hm"
             }
         }
     },

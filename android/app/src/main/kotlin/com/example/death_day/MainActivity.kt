@@ -1,4 +1,4 @@
-package com.example.death_day
+package eu.pingoin.death_day
 
 import io.flutter.embedding.android.FlutterActivity
 

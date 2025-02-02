@@ -1,0 +1,11 @@
+🕰️ Wie lange bleibt dir noch? Finde es heraus!
+Diese App berechnet basierend auf deinem Geburtsdatum und den Daten der deutschen Sterbetafel ein voraussichtliches Todesdatum sowie die verbleibenden Tage deines Lebens.
+
+🔢 Funktionen:
+✅ Berechnung des voraussichtlichen Todesdatums
+✅ Anzeige der verbleibenden Tage
+✅ Wissenschaftlich basierte Berechnung mit Daten der deutschen Sterbetafel
+
+⚠ Hinweis: Diese App dient ausschließlich der Unterhaltung und Veranschaulichung statistischer Lebenserwartungen. Sie kann individuelle Faktoren wie Gesundheit, Lebensstil oder unvorhersehbare Ereignisse nicht berücksichtigen.
+
+Lade die App jetzt herunter und erfahre, wie viel Zeit dir (statistisch gesehen) noch bleibt!

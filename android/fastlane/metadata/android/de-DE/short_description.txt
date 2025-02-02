@@ -1,0 +1,1 @@
+Berechne deine verbleibenden Tage! Basierend auf deinem Geburtsdatum und der deutschen Sterbetafel ermittelt die App ein voraussichtliches Todesdatum

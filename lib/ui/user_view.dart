@@ -5,7 +5,6 @@ import 'package:death_day/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
-import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -33,12 +32,11 @@ class _UserViewState extends State<UserView> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
 
-     active=false;
+    active = false;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +73,7 @@ class _UserViewState extends State<UserView> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              AppLocalizations.of(context).time_left(
-                  user.timeLeft.inDays,
-                  user.timeLeft.inHours % 24,
-                  user.timeLeft.inMinutes % 60,
-                  user.timeLeft.inSeconds % 60),
+              AppLocalizations.of(context).time_left(user.timeLeft.inDays),
               style: style,
             ),
           ),
@@ -90,8 +84,7 @@ class _UserViewState extends State<UserView> {
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              AppLocalizations.of(context)
-                  .time_of_death(user.deathTime, user.deathTime),
+              AppLocalizations.of(context).time_of_death(user.deathTime),
               style: style,
             ),
           ),
@@ -108,7 +101,6 @@ class _UserViewState extends State<UserView> {
   }
 }
 
-
 class MyBannerAdWidget extends StatefulWidget {
   /// The requested size of the banner. Defaults to [AdSize.banner].
   final AdSize adSize;
@@ -116,11 +108,7 @@ class MyBannerAdWidget extends StatefulWidget {
   /// The AdMob ad unit to show.
   ///
   /// TODO: replace this test ad unit with your own ad unit
-  final String adUnitId = Platform.isAndroid
-      // Use this ad unit on Android...
-      ? 'ca-app-pub-1419955128907933~5126146979'
-      // ... or this one on iOS.
-      : 'ca-app-pub-1419955128907933~6258716501';
+  final String adUnitId = 'ca-app-pub-1419955128907933~5126146979';
 
   MyBannerAdWidget({
     super.key,
