@@ -38,14 +38,17 @@ class _UserEditState extends State<UserEdit> {
     var appState = context.watch<MyAppState>();
 
     setState(() {
-      if (appState.isInUserRange(appState.currentUser)) {
-        user = appState.users[appState.currentUser];
-        buttonText = AppLocalizations.of(context).update_user;
-        nameController.text = user.name;
-      } else {
-        user = User();
-        buttonText = AppLocalizations.of(context).add_user;
+      if (!appState.isInUserRange(appState.currentUser)) {
+        appState.addUser(user);
       }
+
+      if (appState.newUser) {
+        buttonText = AppLocalizations.of(context).add_user;
+      } else {
+        buttonText = AppLocalizations.of(context).update_user;
+      }
+      user = appState.users[appState.currentUser];
+      nameController.text = user.name;
     });
 
     return Column(
@@ -67,10 +70,17 @@ class _UserEditState extends State<UserEdit> {
                     firstDate: DateTime.now()
                         .subtract(const Duration(days: 365 * 130)))
                 .then((value) => {
-                      if (value != null) {user.birthDate = value}
+                      if (value != null)
+                        {
+                          setState(() {
+                            user.birthDate = value;
+                          })
+                        }
                     });
           },
-          child: Text(AppLocalizations.of(context).set_birthday),
+          child: Text(
+            AppLocalizations.of(context).birth_date(user.birthDate),
+          ),
         ),
         DropdownButton<Gender>(
             value: user.gender,
@@ -97,10 +107,6 @@ class _UserEditState extends State<UserEdit> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (!appState.isInUserRange(appState.currentUser)) {
-                  appState.users.add(user);
-                  appState.selectUser(appState.users.length - 1);
-                }
                 appState.setEdit(false);
               },
               child: Text(buttonText),

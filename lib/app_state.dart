@@ -9,6 +9,7 @@ class MyAppState extends ChangeNotifier {
   int currentUser = 0;
 
   bool editActive = false;
+  bool newUser=false;
 
   String appName = "";
   String packageName = "";
@@ -60,6 +61,14 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addUser(User user) {
+    users.add(user);
+    currentUser = users.length - 1;
+    newUser = true;
+    saveData();
+    notifyListeners();
+  }
+
   void removeUser(int user) {
     users.removeAt(user);
     saveData();
@@ -68,6 +77,9 @@ class MyAppState extends ChangeNotifier {
 
   void setEdit(bool edit) {
     editActive = edit;
+    if (edit==false){
+      newUser=false;
+    }
     saveData();
     notifyListeners();
   }
