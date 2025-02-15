@@ -4,6 +4,7 @@ import 'package:death_day/ui/user_edit.dart';
 import 'package:death_day/ui/user_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
 
 class AppLayout extends StatefulWidget {
@@ -21,6 +22,11 @@ class _AppLayoutState extends State<AppLayout> {
     var appState = context.watch<MyAppState>();
 
     if (selectedIndex > appState.users.length) {
+      if (selectedIndex > appState.users.length + 1) {
+        final uri = Uri.parse("https://www.buymeacoffee.com/pingoin");
+        launchUrl(uri);
+      }
+
       page = const AboutPage();
     } else if (appState.editActive ||
         !appState.isInUserRange(appState.currentUser)) {
@@ -54,46 +60,51 @@ class _AppLayoutState extends State<AppLayout> {
     final style = theme.textTheme.labelSmall!.copyWith(
       color: theme.colorScheme.tertiary,
     );
+
     return SingleChildScrollView(
         child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: MediaQuery.of(context).size.height,
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
+          ),
+          child: IntrinsicHeight(
+            child: NavigationRail(
+              extended: constraints.maxWidth >= 600,
+              unselectedLabelTextStyle: style,
+              destinations: [
+                for (var user in appState.users)
+                  NavigationRailDestination(
+                    icon: const Icon(Icons.face),
+                    label: Text(user.name),
+                  ),
+                NavigationRailDestination(
+                  icon: const Icon(Icons.add_circle_outline),
+                  label: Text(AppLocalizations.of(context).new_user),
+                ),
+                NavigationRailDestination(
+                  icon: const Icon(Icons.home_filled),
+                  label: Text(AppLocalizations.of(context).about_page),
+                ),
+                NavigationRailDestination(
+                  icon: const ImageIcon(
+                      AssetImage('assets/bmc-logo-no-background.png')),
+                  label: Text(AppLocalizations.of(context).buymeacoffee),
+                ),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) {
+                setState(() {
+                  selectedIndex = value;
+                  if (!appState.isInUserRange(selectedIndex)) {
+                    appState.selectUser(-1);
+                    appState.setEdit(true);
+                  } else {
+                    appState.selectUser(selectedIndex);
+                    appState.setEdit(false);
+                  }
+                });
+              },
             ),
-            child: IntrinsicHeight(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                unselectedLabelTextStyle: style,
-                destinations: [
-                  for (var user in appState.users)
-                    NavigationRailDestination(
-                      icon: const Icon(Icons.face),
-                      label: Text(user.name),
-                    ),
-                  NavigationRailDestination(
-                    icon: const Icon(Icons.add_circle_outline),
-                    label: Text(AppLocalizations.of(context).new_user),
-                  ),
-                  NavigationRailDestination(
-                    icon: const Icon(Icons.home_filled),
-                    label: Text(AppLocalizations.of(context).about_page),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                    if (!appState.isInUserRange(selectedIndex)) {
-                      appState.selectUser(-1);
-                      appState.setEdit(true);
-                    } else {
-                      appState.selectUser(selectedIndex);
-                      appState.setEdit(false);
-                    }
-                  });
-                },
-              ),
-            )
-        )
-    );
+          ),
+        ));
   }
 }
