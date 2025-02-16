@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
 
 class UserEdit extends StatefulWidget {
-  const UserEdit({super.key});
+  const UserEdit(this.id, {super.key});
+
+  final String? id;
 
   @override
   State<UserEdit> createState() => _UserEditState();
@@ -13,7 +15,7 @@ class UserEdit extends StatefulWidget {
 
 class _UserEditState extends State<UserEdit> {
   final nameController = TextEditingController();
-  User user = User();
+  User user = defaultUser();
   String buttonText = "";
   @override
   void dispose() {
@@ -36,21 +38,21 @@ class _UserEditState extends State<UserEdit> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-
-    setState(() {
-      if (!appState.isInUserRange(appState.currentUser)) {
-        appState.addUser(user);
-      }
-
-      if (appState.newUser) {
-        buttonText = AppLocalizations.of(context).add_user;
-      } else {
-        buttonText = AppLocalizations.of(context).update_user;
-      }
-      user = appState.users[appState.currentUser];
-      nameController.text = user.name;
-    });
-
+    //var appState = context.watch<MyAppState>();
+    buttonText = AppLocalizations.of(context).add_user;
+    if (widget.id != null) {
+      appState.getUser(widget.id!).then((newUser) {
+        if (newUser != null) {
+          if (user.id != newUser.id) {
+            setState(() {
+              user = newUser;
+              nameController.text = user.name;
+              buttonText = AppLocalizations.of(context).update_user;
+            });
+          }
+        }
+      });
+    }
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -98,16 +100,19 @@ class _UserEditState extends State<UserEdit> {
           children: [
             ElevatedButton(
               onPressed: () {
-                if (!appState.isInUserRange(appState.currentUser)) {}
-                appState.removeUser(appState.currentUser);
-                appState.selectUser(0);
-                appState.setEdit(false);
+                appState.removeUser(user);
+                appState.setViewAbout(); // Navigate back to user list
               },
               child: Text(AppLocalizations.of(context).delete),
             ),
             ElevatedButton(
               onPressed: () {
-                appState.setEdit(false);
+                if (widget.id == null) {
+                  appState.addUser(user);
+                } else {
+                  appState.updateUser(user); // Update user
+                }
+                appState.setViewUser(user.id);
               },
               child: Text(buttonText),
             ),

@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import '../l10n/gen_l10n/app_localizations.dart';
 
 class UserView extends StatefulWidget {
-  const UserView({super.key});
+  const UserView(this.id, {super.key});
+  final String id;
 
   @override
   State<UserView> createState() => _UserViewState();
@@ -15,11 +16,11 @@ class UserView extends StatefulWidget {
 
 class _UserViewState extends State<UserView> {
   var active = false;
+  User user = defaultUser();
   @override
   void initState() {
     super.initState();
     active = true;
-    super.initState();
     Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
       if (!active) {
         t.cancel();
@@ -40,13 +41,15 @@ class _UserViewState extends State<UserView> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     var appState = context.watch<MyAppState>();
-    User user;
-
-    if (appState.currentUser >= 0) {
-      user = appState.users[appState.currentUser];
-    } else {
-      user = User();
-    }
+    appState.getUser(widget.id).then((newUser) {
+      if (newUser != null) {
+        if (user.id != newUser.id) {
+          setState(() {
+            user = newUser;
+          });
+        }
+      }
+    });
 
     final style = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onPrimary,
@@ -89,7 +92,7 @@ class _UserViewState extends State<UserView> {
         ),
         ElevatedButton(
           onPressed: () {
-            appState.setEdit(true);
+            appState.setEditUser(user.id);
           },
           child: Text(AppLocalizations.of(context).edit),
         ),
